@@ -1,11 +1,25 @@
 {
   "name": "data-structure-algorithm-javascript",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hapsoa/data-structure-algorithm-javascript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hapsoa/data-structure-algorithm-javascript/issues"
+  },
+  "homepage": "https://github.com/hapsoa/data-structure-algorithm-javascript#readme",
+  "description": ""
 }
