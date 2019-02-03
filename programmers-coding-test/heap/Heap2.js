@@ -1,3 +1,5 @@
+// 1번은 어떻게 돌아가긴하는데 , Heap2는 아직 완전구현은 안됨.
+
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
@@ -91,7 +93,8 @@ class Heap {
     const clonedParentNode = parentNode.cloneDeep();
     const clonedChildNode = childNode.cloneDeep();
 
-    parentNode = childNode; // data 바뀌고, 서로 바뀐 부모자식 ref만 재설정 해준다.
+    // data 바뀌고, 서로 바뀐 부모자식 ref만 재설정 해준다.
+    parentNode.data = childNode.data;
     parentNode.index = clonedParentNode.index;
     parentNode.parent = clonedParentNode.parent;
     if (clonedChildNode.index % 2 === 1) {
@@ -110,6 +113,8 @@ class Heap {
 
     this.nodeArray[parentNode.index] = parentNode;
     this.nodeArray[childNode.index] = childNode;
+    console.log('parent Node', parentNode.data);
+    console.log('child node', childNode.data);
   }
 
   arrangePositionAtUp(node) {
@@ -122,9 +127,10 @@ class Heap {
         }
       } else {
         if (node.parent.data > node.data) {      
+          console.log('바뀌기 전 자식 data', node.data);
           this.switchNode(node.parent, node);
-          // console.log('aaaaa', node);
           // console.log('yyyhhh', node.parent);
+          console.log('부모정보가 담긴 자식노드', node) // 부모정보가 담긴 자식노드
           this.arrangePositionAtUp(node);
         }
       }
@@ -210,11 +216,11 @@ const tree = new Heap('min');
 
 tree.insertNode(new Node(7));
 tree.insertNode(new Node(3));
-tree.insertNode(new Node(8));
-tree.insertNode(new Node(5));
-tree.insertNode(new Node(1));
-tree.insertNode(new Node(2));
-tree.insertNode(new Node(4));
+// tree.insertNode(new Node(8));
+// tree.insertNode(new Node(5));
+// tree.insertNode(new Node(1));
+// tree.insertNode(new Node(2));
+// tree.insertNode(new Node(4));
 
 tree.showNodeArray();
 // console.log('');
