@@ -1,4 +1,7 @@
 /* eslint-disable no-plusplus */
+
+// **** 정답은 몯 성공했지만, 속도가 느려서 실패
+
 // const budgets = [120, 110, 140, 150];
 // const M = 485;
 
