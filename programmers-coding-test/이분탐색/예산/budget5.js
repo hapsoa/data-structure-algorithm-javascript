@@ -1,3 +1,4 @@
+// 정답
 function solution(budgets, M) {
   const sumBudgets = budgets.reduce((accumulator, currentValue) => accumulator + currentValue);
 
@@ -39,4 +40,4 @@ function solution(budgets, M) {
   return center;
 }
 
-// console.log(solution([120, 110, 140, 150], 485));
+console.log(solution([120, 110, 140, 150], 485));

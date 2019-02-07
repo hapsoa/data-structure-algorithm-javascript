@@ -1,6 +1,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-plusplus */
 
+// 정답
 // O(n log n)
 
 // const budgets = [120, 110, 140, 150];
