@@ -105,7 +105,7 @@ function solution(n, lost, reserve) {
   return answer;
 }
 
-// console.log(solution(5, [2, 4], [1, 3, 5]));
+console.log(solution(5, [2, 4], [1, 3, 5]));
 
 // const arr = [1, 2];
 
