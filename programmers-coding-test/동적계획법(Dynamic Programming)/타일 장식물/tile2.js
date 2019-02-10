@@ -1,6 +1,8 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-else-return */
+
+// N까지가 아니라 N-1 만큼만 계산하라고 해서 통과하지 못한것이었다..
 class Fibonacci {
   constructor() {
     // this.memories = [this.fib(1), this.fib(2)];
