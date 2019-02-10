@@ -47,7 +47,7 @@ function solution(N) {
   return fibonacci.getCircumference(N);
 }
 
-console.log(solution(6));
+// console.log(solution(6));
 
 // const array = new Array(2).fill(undefined);
 // array[0] = 1;
