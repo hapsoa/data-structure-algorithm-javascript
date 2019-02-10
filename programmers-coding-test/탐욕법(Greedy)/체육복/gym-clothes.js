@@ -24,46 +24,39 @@ class Students {
     this.lostStudents.forEach(lostStudent => {
       this.students[lostStudent - 1].status = "lost";
     });
+    const deletingReserves = [];
     this.reserveStudents.forEach(reserveStudent => {
       if (this.students[reserveStudent - 1].status === "normal") {
         this.students[reserveStudent - 1].status = "reserve";
       } else if (this.students[reserveStudent - 1].status === "lost") {
         this.students[reserveStudent - 1].status = "normal";
+        deletingReserves.push(reserveStudent);
       } else {
         throw new Error("constructor의 reserveStudents에서 오류남");
       }
     });
-  }
-
-  findAvailableStudents() {
-    const suspendedReserves = [];
-    for (let i = 0; i < this.reserveStudents.length; i++) {
-      this.giveGymClothes(this.reserveStudents[i], suspendedReserves);
-    }
-    this.reserveStudents = this.reserveStudents.filter((reserveStudent) => {
-      return suspendedReserves.indexOf(reserveStudent) !== -1;
+    this.reserveStudents = this.reserveStudents.filter(reserveStudent => {
+      return deletingReserves.indexOf(reserveStudent) === -1;
     });
-    // console.log('suspendedReserves', suspendedReserves);
-    // console.log('변경된 reserveStudents', this.reserveStudents);
-
-    if (this.reserveStudents.length !== 0) {
-      this.findAvailableStudents();
-    } else {
-      let lostNum = 0;
-      this.students.forEach((student) => {
-        if (student.status === 'lost') {
-          lostNum++;
-        }
-      });
-      this.availableStudents = this.n - lostNum;
-    }
-    // return 체육시간 가능한 학생 수;
-    // return this.n - this.lostStudents.length;
   }
 
-  giveGymClothes(reserveStudent, suspendedReserves) {
+  getAvailableStudents() {
+    for (let i = 0; i < this.reserveStudents.length; i++) {
+      this.giveGymClothes(this.reserveStudents[i]);
+    }
+
+    let lostNum = 0;
+    this.students.forEach((student) => {
+      if (student.status === 'lost') {
+        lostNum++;
+      }
+    });
+    // return 체육시간 가능한 학생 수;
+    return this.n - lostNum;
+  }
+
+  giveGymClothes(reserveStudent) {
     // reserve의 왼쪽이 존재하지 않을때, 오른쪽이 존재하지 않을 때, 둘 다 존재할 때
-    // console.log('reserveStudent', reserveStudent);
     if (
       this.students[reserveStudent - 2] !== undefined
       && this.students[reserveStudent] !== undefined
@@ -79,8 +72,6 @@ class Students {
         this.students[reserveStudent - 1] = 'normal';
       } else if (this.students[reserveStudent - 2].status === 'lost'
       && this.students[reserveStudent].status === 'lost') {
-        // 보류
-        // suspendedReserves.push(reserveStudent);
         this.students[reserveStudent - 2].status = 'normal';
       }
     } else if (this.students[reserveStudent - 2] === undefined) {
@@ -99,14 +90,8 @@ class Students {
 
 function solution(n, lost, reserve) {
   const students = new Students(n, lost, reserve);
-  // console.log(students.students);
-  students.findAvailableStudents();
-  const answer = students.availableStudents;
-  return answer;
+  return students.getAvailableStudents();
 }
 
 // console.log(solution(5, [2, 4], [1, 3, 5]));
-
-// const arr = [1, 2];
-
-// console.log(arr.indexOf(1));
+// console.log(solution(11, [2, 3, 4], [1, 4, 6, 10]));
