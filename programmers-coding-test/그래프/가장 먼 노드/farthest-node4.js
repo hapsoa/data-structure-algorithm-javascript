@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
+
+// dfs가 아니라 bfs를 써야한다!
 class Node {
   constructor(data) {
     this.data = data;
@@ -29,7 +31,7 @@ class Graph {
     // console.log(this.nodes);
   }
 
-  dfs(node) {
+  bfs(node) {
     this.queue.push(node);
     node.depth = 0;
     let numOfdeepestNodes = 1;
@@ -58,18 +60,18 @@ class Graph {
   }
 
   getNumOfDeepestNodes() {
-    this.dfs(this.nodes[0]);
+    this.bfs(this.nodes[0]);
 
     return this.numOfdeepestNodes;
   }
 }
 
-const graph = new Graph(6, [[3, 6], [4, 3], [3, 2], [1, 3], [1, 2], [2, 4], [5, 2]]);
+// const graph = new Graph(6, [[3, 6], [4, 3], [3, 2], [1, 3], [1, 2], [2, 4], [5, 2]]);
 // const graph = new Graph(3, [[1, 2], [3, 1], [1, 2]]);
 // const graph = new Graph(6, [[1, 2], [3, 1], [1, 2], [2, 4], [4, 5], [6, 4]]);
 // const graph = new Graph(10, [[1, 2], [1, 3], [1, 4], [3, 5], [4, 5], [5, 7], [5, 6], [5, 8], [2, 9], [9, 10]]);
 
-console.log('answer', graph.getNumOfDeepestNodes());
+// console.log('answer', graph.getNumOfDeepestNodes());
 
 function solution(n, edge) {
   const graph = new Graph(n, edge);
