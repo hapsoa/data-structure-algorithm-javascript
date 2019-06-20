@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-const _ = require('lodash');
-
 class Node {
   constructor(element) {
     this.element = element;
@@ -18,17 +15,6 @@ class Graph {
   }
 
   /**
-   * dfs 시작함수
-   * @param {Node} node
-   */
-  dfsInit(node) {
-    this.stack = [node];
-    const poppedNode = this.stack.pop();
-    poppedNode.checked = true;
-    this.dfs({ node: poppedNode, stack: this.stack });
-  }
-
-  /**
    * 깊이 우선 탐색 함수
    * @param {Node} o.node
    * @param {Node[]} o.stack
@@ -39,6 +25,7 @@ class Graph {
     // 3.출력하고
     // 담을 게 없으면 출력하고. 다시 꺼내고 출력하고..
     const currentNode = o.node;
+    currentNode.checked = true;
 
     for (let i = 0; i < currentNode.adjacencyList.length; i += 1) {
       if (!currentNode.adjacencyList[i].checked) {
@@ -48,7 +35,7 @@ class Graph {
       }
     }
     console.log(currentNode.element, 'depth', currentNode.depth);
-    if (this.stack.length !== 0) {
+    if (o.stack.length !== 0) {
       this.dfs({ node: o.stack.pop(), stack: o.stack });
     }
   }
@@ -71,4 +58,5 @@ node6.adjacencyList = [node5];
 const graph = new Graph([node1, node2, node3, node4, node5, node6]);
 
 
-graph.dfsInit(node1);
+// graph.dfsInit(node1);
+graph.dfs({ node: node1, stack: [] });
