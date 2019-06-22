@@ -8,12 +8,6 @@ class Node {
 }
 
 class Graph {
-  constructor(nodes) {
-    this.nodes = nodes;
-    this.depth = 0;
-    this.stack = [];
-  }
-
   /**
    * 깊이 우선 탐색 함수
    * @param {Node} o.node
@@ -55,7 +49,7 @@ node4.adjacencyList = [node2, node3, node5];
 node5.adjacencyList = [node4, node6];
 node6.adjacencyList = [node5];
 
-const graph = new Graph([node1, node2, node3, node4, node5, node6]);
+const graph = new Graph();
 
 
 // graph.dfsInit(node1);
