@@ -7,19 +7,19 @@
 const A = [7, 5, 2, 7, 2, 7, 4, 7];
 
 function solution(A) {
-  // trip의 수를 구한다.
+  
+  // A의 고유한 개별 trip을 찾는다.
   const tripHash = {};
-
   for (let i = 0; i < A.length; i++) {
     tripHash[A[i]] = true;
   }
 
-  console.log("tripHash", tripHash);
+  // A의 고유한 개별 trip의 수
   const numOfTrips = Object.keys(tripHash).length;
-  console.log("numOfTrips", numOfTrips);
 
   // 반복문을 돌면서 찾는다.
   let minNumOfTrips = null;
+  
   // trip수를 늘린다.
   for (let i = numOfTrips; i <= A.length; i++) {
     // 4개짜리를 돌린다.
