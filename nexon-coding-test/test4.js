@@ -11,13 +11,90 @@
 // 문제가 있으면 해당 에러를 return한다.
 
 class Node {
-  constructor(node) {
-    this.node = node;
-    this.leftChild = null;
-    this.rightChild = null;
+  constructor(nodeName) {
+    this.name = nodeName;
+    this.children = [];
+    this.parent = null;
   }
 
-  setChild(node) {}
+  setChild(node) {
+    if (this.children.length < 2) {
+      this.children.push(node);
+      this.children.sort((node1, node2) => node1.name < node2.name);
+    } else {
+      throw new Error("E1");
+    }
+  }
+
+  setParent(node) {
+    if (this.parent === null) {
+      this.parent = node;
+    } else {
+      throw new Error("E3");
+    }
+  }
+}
+
+// for문 돌면서 검사한다.
+// 자식이 3개 이상인지
+// 부모가 2개인지
+
+// 초반 체크
+// 같은 edge가 여러개인지
+
+// 마지막 체크
+// root가 2개인지
+
+// 에러가 아니면 sExpression으로 표현한다.
+class Tree {
+  constructor() {
+    this.treeNodes = {};
+    this.branchesHash = {};
+  }
+
+  setBranch(branch) {
+    // 같은 edge가 여러개인지
+    if (this.branchesHash.hasOwnProperty(branch)) {
+      throw new Error("E2");
+    }
+    this.branchesHash[branch] = true;
+
+    const parentNodeName = branch[1];
+    const childNodeName = branch[3];
+
+    let parentNode = null;
+    let childNode = null;
+
+    if (this.treeNodes.hasOwnProperty(parentNodeName)) {
+      parentNode = this.treeNodes[parentNodeName];
+    } else {
+      parentNode = new Node(parentNodeName);
+      this.treeNodes[parentNodeName] = parentNode;
+    }
+
+    if (this.treeNodes.hasOwnProperty(childNodeName)) {
+      childNode = this.treeNodes[childNodeName];
+    } else {
+      childNode = new Node(childNodeName);
+      this.treeNodes[childNodeName] = childNode;
+    }
+
+    try {
+      parentNode.setChild(childNode);
+      childNode.setParent(parentNode);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  getRoot() {
+    let root = null;
+    for (let i = 0; i < this.treeNodes.length; i++) {
+      if (this.treeNodes[i].parent === null) {
+        root = this.treeNodes[i].parent;
+      }
+    }
+  }
 }
 
 /**
@@ -28,19 +105,17 @@ class Node {
 function sExpression(nodes) {
   const branches = nodes.split(" ");
   let sExpression = "";
+  const tree = new Tree();
 
   for (let i = 0; i < branches.length; i++) {
     const branch = branches[i];
-    // console.log("node", node);
-
-    const parentNode = branch[1];
-    const childNode = branch[3];
-
-    // console.log(parentNode, childNode);
+    tree.setBranch(branch);
   }
 
-  const testNode = new Node("A");
-  console.log(testNode.leftChild);
+  console.log("treeNodes", tree.treeNodes);
+
+  // const testNode = new Node("A");
+  // console.log(testNode.leftChild);
 }
 
 sExpression("(A,B) (A,C)");
