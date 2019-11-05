@@ -36,10 +36,106 @@ function entryTime(s, keypad) {
         timeResult += 2;
       }
     }
+
+    if (keypadHash[currentInput] === 1) {
+      if (
+        keypadHash[pastInput] === 0 ||
+        keypadHash[pastInput] === 2 ||
+        keypadHash[pastInput] === 3 ||
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 5
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
+
+    if (keypadHash[currentInput] === 2) {
+      if (
+        keypadHash[pastInput] === 1 ||
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 5
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
+
+    if (keypadHash[currentInput] === 3) {
+      if (
+        keypadHash[pastInput] === 0 ||
+        keypadHash[pastInput] === 1 ||
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 6 ||
+        keypadHash[pastInput] === 7
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
+
+    if (keypadHash[currentInput] === 4) {
+      timeResult += 1;
+    }
+
+    if (keypadHash[currentInput] === 5) {
+      if (
+        keypadHash[pastInput] === 1 ||
+        keypadHash[pastInput] === 2 ||
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 7 ||
+        keypadHash[pastInput] === 8
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
+
+    if (keypadHash[currentInput] === 6) {
+      if (
+        keypadHash[pastInput] === 3 ||
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 7
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
+
+    if (keypadHash[currentInput] === 7) {
+      if (
+        keypadHash[pastInput] === 3 ||
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 5 ||
+        keypadHash[pastInput] === 6 ||
+        keypadHash[pastInput] === 8
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
+
+    if (keypadHash[currentInput] === 8) {
+      if (
+        keypadHash[pastInput] === 4 ||
+        keypadHash[pastInput] === 5 ||
+        keypadHash[pastInput] === 7
+      ) {
+        timeResult += 1;
+      } else {
+        timeResult += 2;
+      }
+    }
   }
 
-  console.log(s, keypad);
-  console.log(s[2]);
+  return timeResult;
 }
 
-entryTime("423692", "923857614");
+const result = entryTime("423692", "923857614");
+console.log("result", result);
