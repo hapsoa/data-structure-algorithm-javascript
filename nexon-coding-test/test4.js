@@ -53,12 +53,6 @@ class Tree {
   }
 
   setBranch(branch) {
-    // 같은 edge가 여러개인지
-    if (this.branchesHash.hasOwnProperty(branch)) {
-      throw new Error("E2");
-    }
-    this.branchesHash[branch] = true;
-
     const parentNodeName = branch[1];
     const childNodeName = branch[3];
 
@@ -81,6 +75,13 @@ class Tree {
 
     try {
       parentNode.setChild(childNode);
+
+      // 같은 edge가 여러개인지
+      if (this.branchesHash.hasOwnProperty(branch)) {
+        throw new Error("E2");
+      }
+      this.branchesHash[branch] = true;
+
       childNode.setParent(parentNode);
     } catch (error) {
       throw error;
@@ -89,11 +90,21 @@ class Tree {
 
   getRoot() {
     let root = null;
-    for (let i = 0; i < this.treeNodes.length; i++) {
-      if (this.treeNodes[i].parent === null) {
-        root = this.treeNodes[i].parent;
+
+    const treeNodesKeys = Object.keys(this.treeNodes);
+    for (let i = 0; i < treeNodesKeys.length; i++) {
+      const key = treeNodesKeys[i];
+      const node = this.treeNodes[key];
+
+      if (node.parent === null && root !== null) {
+        throw new Error("E4");
+      }
+      if (node.parent === null) {
+        root = node;
       }
     }
+
+    return root;
   }
 }
 
@@ -103,19 +114,61 @@ class Tree {
  * @return {string} (A(B)(C))
  */
 function sExpression(nodes) {
-  const branches = nodes.split(" ");
-  let sExpression = "";
-  const tree = new Tree();
+  try {
+    const branches = nodes.split(" ");
+    const tree = new Tree();
 
-  for (let i = 0; i < branches.length; i++) {
-    const branch = branches[i];
-    tree.setBranch(branch);
+    for (let i = 0; i < branches.length; i++) {
+      const branch = branches[i];
+      tree.setBranch(branch);
+    }
+
+    const root = tree.getRoot();
+
+    // rootNode부터 sExpression으로 만든다.
+    let sExpression = `(${root.name})`;
+    let queue = [];
+    queue.push(root);
+
+    while (queue.length !== 0) {
+      // 빼고
+      const escapedNode = queue.shift();
+
+      // 출력한다. 필요 코드를 작성한다.
+      let childrenSExpression = "";
+      for (let i = 0; i < escapedNode.chiÏEdren.length; i++) {
+        const child = escapedNode.children[i];
+        childrenSExpression += `(${child.name})`;
+      }
+
+      sExpression = sExpression.replace(
+        `(${escapedNode.name})`,
+        `(${escapedNode.name}${childrenSExpression})`
+      );
+
+      // 집어넣고
+      if (escapedNode.children.length !== 0) {
+        queue = queue.concat(escapedNode.children);
+      }
+    }
+
+    return sExpression;
+  } catch (error) {
+    if (
+      error.message === "E1" ||
+      error.message === "E2" ||
+      error.message === "E3" ||
+      error.message === "E4"
+    ) {
+      return error.message;
+    } else {
+      return "E5";
+    }
   }
-
-  console.log("treeNodes", tree.treeNodes);
-
-  // const testNode = new Node("A");
-  // console.log(testNode.leftChild);
 }
 
-sExpression("(A,B) (A,C)");
+// const result = sExpression("(A,B) (A,C)");
+// const result = sExpression("(B,D) (D,E) (A,B) (C,F) (E,G) (A,C)");
+// const result = sExpression("(A,B) (A,C) (B,D) (D,C)");
+const result = sExpression("(A,B) (B,C) (C,A)");
+console.log("result", result);
