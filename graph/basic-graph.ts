@@ -1,17 +1,13 @@
 class GraphNode {
-  private data: number;
-
-  constructor(data: number) {
-    this.data = data;
-  }
+  constructor(private data: number, private links: GraphNode[]) {}
 }
 
 class Graph {
-  private adjacencyList: Array<GraphNode[]> = [];
+  constructor(private nodes: GraphNode[]) {}
 
-  constructor() {
-    //
+  public getAdjacencyList() {
+    // TODO
   }
 }
 
-const graph = new Graph();
+const graph = new Graph([]);
